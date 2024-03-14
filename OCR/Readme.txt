@@ -1,6 +1,6 @@
 This repository is about the augmentation of images that can used in object detection and recognition.
 
-python main.py --dir=C:/Users/User/Desktop/Augmentation_Software/Data_Augmentation/OCR/samples/ --n=3x --rotate=-10to10 --blur=2to10 --contrast=-15to15 --elastic=300to400 --rigid=15to35 --recursion_rate=0.3 --percent=70 
+python main.py --dir=H:/Crimson_2024/Augmentation/samples/ --n=3x --rotate=-10to10 --blur=2to10 --contrast=-15to15 --elastic=300to400 --rigid=0to35 --recursion_rate=0.3 --percent=70 
 
 dir: Input directory of images and after augmetation is completed, a folder named "Detection_Dataset" is created and all the augmented images are stored there.
 x is times
