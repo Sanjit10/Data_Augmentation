@@ -1,0 +1,11 @@
+./__pycache__
+./backup
+./orig
+./output
+./resized_img
+./samples
+
+*.pkl 
+*.jpg
+*.png
+*.pt
