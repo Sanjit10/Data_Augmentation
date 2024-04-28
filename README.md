@@ -21,4 +21,4 @@ In YOLO to generate more variety on data, Image crop method is also applied rand
 
 python main.py --dir='path of a data' --n=4x --rotate=-10to10 --blur=2to10 --contrast=-15to15 --elastic=300to400 --rigid=15to35 --recursion_rate=0.4 --crop_no=3to5 --percent=70
 
-
+<img alt = 'coding' width = "1000" height = "500" src = "https://github.com/lalchhabi/Data_Augmentation/blob/master/augmentation_process.jpg">
