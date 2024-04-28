@@ -4,7 +4,7 @@ import argparse
 import random
 import shutil
 from PIL import Image
-
+import time
 
 parser=argparse.ArgumentParser() #CLI documentation for commandline input
 parser.add_argument('--dir=',type=str)
@@ -32,7 +32,7 @@ rr = vars(args)['recursion_rate=']
 master_dir = vars(args)['master_dir=']
 gui_dir_path = vars(args)['gui_dir_path=']
 
-# type = 'paddle'
+type = 'paddle'
 dir_name = dir+'Detection_Dataset'
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name,)
@@ -54,13 +54,14 @@ aug_weight = 0
 current_file_name = ''
 weights = [0.1, 0.2, 0.1,0.2,0.2,0.1,0.1]   ####### probability values of each augmentation methods
 
+start = time.time()
 def random_augment():
     '''
     A function that chooses the augmentation method randomly and return the 
     probability values, image_path, bounding_box_path, augmentation method name
     '''
     (aug_method, weights_1), = random.choices(list(zip(aug_methods,weights)))
-
+    #print("Augmentation Method",aug_method)
     aug_methods.pop(aug_methods.index(aug_method))
     aug_method_name, func, args = aug_method
     new_file = os.path.join(outdir,args[0])
@@ -87,7 +88,7 @@ def recursive_augment(img, bounding_box, outdir, rr):
     # print("     [*] Choosing methods ", aug_method_name)
     aug_weight += prob_val
     if aug_weight >= rr:
-        # print("Condition found")
+        # print("Complete Image",filename)
         aug_weight = 0
         
         augmented_image_path = os.path.join(outdir, f"{current_file_name}_aug_{count}.jpg")
@@ -145,6 +146,7 @@ for filename in list_of_files:
         count += 1
         if count % 100 == 0:
             print("Number of data created: ", count)
+            print("Total time taken",time.time()-start)
 
 print("Total number of data created: ", count)
 
