@@ -135,7 +135,7 @@ for filename in list_of_files:
             ('ri', augmentation.rigid, (filename,rigid,outdir,i))
         ]
         current_file_name = filename.replace('.jpg', '')
-        recursive_augment(filename, bounding_box, outdir, 0.5)  ###### calling recursive function
+        recursive_augment(filename, bounding_box, outdir, rr)  ###### calling recursive function
 
         # unaugmented image remove
         os.remove(os.path.join(outdir, filename)) ##### remove existing image
