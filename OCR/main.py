@@ -5,9 +5,12 @@ import random
 import shutil
 from PIL import Image
 import time
+import label_conveter
 
 parser=argparse.ArgumentParser() #CLI documentation for commandline input
+
 parser.add_argument('--dir=',type=str)
+parser.add_argument('--label_format=', type=str, choices=['OCR', 'YOLO5', 'YOLO8'], help='The format to convert the data to', default=None)
 parser.add_argument('--n=',type=str)
 parser.add_argument('--rotate=',type=str)
 parser.add_argument('--blur=',type=str)
@@ -21,6 +24,7 @@ parser.add_argument('--gui_dir_path=',type=str)
 args=parser.parse_args()
 
 dir=vars(args)['dir=']
+labelvalue=vars(args)['label_format=']
 n=vars(args)['n=']
 blvalue=vars(args)['blur=']
 rotate=vars(args)['rotate=']
@@ -33,7 +37,7 @@ master_dir = vars(args)['master_dir=']
 gui_dir_path = vars(args)['gui_dir_path=']
 
 type = 'paddle'
-dir_name = dir+'Detection_Dataset'
+dir_name = dir+'_Detection_Dataset'
 if not os.path.isdir(dir_name):
     os.mkdir(dir_name,)
     print('Detection_Dataset Folder Created')
@@ -147,6 +151,15 @@ for filename in list_of_files:
         if count % 100 == 0:
             print("Number of data created: ", count)
             print("Total time taken",time.time()-start)
+
+#Apply conversion to the format
+if labelvalue is not None:
+    list_of_files = os.listdir(outdir)
+    for filename in list_of_files:
+        if filename.endswith('.txt'):
+            label_conveter.label_converter_main(os.path.join(outdir, filename), labelvalue)
+    print(f"Conversion to {labelvalue} format complete. Original text file replaced.")
+
 
 print("Total number of data created: ", count)
 

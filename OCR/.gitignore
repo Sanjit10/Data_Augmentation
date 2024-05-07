@@ -4,6 +4,8 @@
 ./output
 ./resized_img
 ./samples
+./text_test
+./text_testDetection_Dataset
 
 *.pkl 
 *.jpg
