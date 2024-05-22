@@ -14,11 +14,13 @@ Note: You can visualize the augmented images and it's bounding box by using http
 
 To run this file :-
 For Text Detection or OCR
-python main.py --dir=/home/swordlord/Data_Augmentation/text_test  --n=3x --rotate=-10to20 --blur=3to15 --contrast=-15to15 --elastic=300to400 --rigid=7to15 --recursion_rate=0.7 --percent=70 
+python main.py --dir=/home/swordlord/crimson_tech/Data_Augmentation/good_tags --label_format=YOLO8  --n=10x --rotate=-10to10 --blur=3to15 --contrast=-15to15 --elastic=300to400 --rigid=0to5 --recursion_rate=0.5 --percent=70 
 
 For Object Detection or YOLO
 In YOLO to generate more variety on data, Image crop method is also applied randomly such that it preserves the data inside the bounding box.
 
-python main.py --dir='path of a data' --n=4x --rotate=-10to10 --blur=2to10 --contrast=-15to15 --elastic=300to400 --rigid=15to35 --recursion_rate=0.4 --crop_no=3to5 --percent=70
+python main.py --dir='/home/swordlord/crimson_tech/Data_Augmentation/good_tags' --n=30x --rotate=-10to10 --blur=2to10 --contrast=-15to15 --elastic=300to400 --rigid=15to35 --recursion_rate=0.4 --crop_no=3to5 --percent=70
 
 <img alt = 'coding' width = "1000" height = "500" src = "https://github.com/lalchhabi/Data_Augmentation/blob/master/augmentation_process.jpg">
+
+python check_annotation/main.py '/home/swordlord/crimson_tech/Data_Augmentation/tags_obb.v1i.yolov5-obb/test/images' '/home/swordlord/crimson_tech/Data_Augmentation/tags_obb.v1i.yolov5-obb/test/label' 

@@ -56,7 +56,7 @@ print("Augmentation Started")
 
 aug_weight = 0
 current_file_name = ''
-weights = [0.1, 0.2, 0.1,0.2,0.2,0.1,0.1]   ####### probability values of each augmentation methods
+weights = [0.2, 0.2, 0.0,0.2,0.2,0.1,0.1]   ####### probability values of each augmentation methods
 
 start = time.time()
 def random_augment():
