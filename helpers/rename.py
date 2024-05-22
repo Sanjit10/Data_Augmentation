@@ -35,5 +35,5 @@ def rename_files(folder_path):
             counter += 1
 
 # Example usage:
-folder_path = '/home/swordlord/crimson_tech/Data_Augmentation/good_tags_Detection_Dataset'
+folder_path = '/home/swordlord/crimson_tech/Data_Augmentation/Dataset'
 rename_files(folder_path)

@@ -112,6 +112,10 @@ def update_data_yaml(source_yaml_path, destination_yaml_path, train_path, test_p
     A function that reads an existing data.yaml file from the source directory, updates it with the
     train and test paths and the number of classes, and writes the updated data.yaml file to the destination directory.
     """
+    #check if the source yaml file exists
+    if not os.path.exists(source_yaml_path):
+        print(f"Error: {source_yaml_path} does not exist.")
+        return
     # Load the existing yaml file
     with open(source_yaml_path, 'r') as yaml_file:
         data = yaml.safe_load(yaml_file)
