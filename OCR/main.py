@@ -1,6 +1,7 @@
 import augmentation
 import os
 import argparse
+import yaml
 import random
 import shutil
 from PIL import Image
@@ -59,6 +60,76 @@ current_file_name = ''
 weights = [0.2, 0.2, 0.0,0.2,0.2,0.1,0.1]   ####### probability values of each augmentation methods
 
 start = time.time()
+
+def train_test_split(aug_master_dir, percent):
+    """
+    A function that splits the aug_master_dir into train and test directories based on the percentage provided.
+    It creates a structure where train and test directories contain 'images' and 'labels' subdirectories.
+    """
+    # Get the list of all files in the aug_master_dir
+    file_list = os.listdir(aug_master_dir)
+    
+    # Filter the files into images and labels
+    images = [f for f in file_list if '.jpg' in f]  # Adjust the condition based on your naming convention
+    labels = [f for f in file_list if '.txt' in f]  # Adjust the condition based on your naming convention
+
+    # Ensure there is a corresponding label for each image
+    images.sort()
+    labels.sort()
+    
+    # Calculate the number of files for training and testing based on the percentage
+    train_count = int(len(images) * (percent / 100))
+    
+    # Shuffle the file lists randomly
+    combined_list = list(zip(images, labels))
+    random.shuffle(combined_list)
+    
+    # Create the train and test directories with images and labels subdirectories
+    train_images_dir = os.path.join(aug_master_dir, 'train', 'images')
+    train_labels_dir = os.path.join(aug_master_dir, 'train', 'labels')
+    test_images_dir = os.path.join(aug_master_dir, 'test', 'images')
+    test_labels_dir = os.path.join(aug_master_dir, 'test', 'labels')
+    
+    os.makedirs(train_images_dir, exist_ok=True)
+    os.makedirs(train_labels_dir, exist_ok=True)
+    os.makedirs(test_images_dir, exist_ok=True)
+    os.makedirs(test_labels_dir, exist_ok=True)
+    
+    # Move the files to the train and test directories
+    for i, (image, label) in enumerate(combined_list):
+        if i < train_count:
+            shutil.move(os.path.join(aug_master_dir, image), os.path.join(train_images_dir, image))
+            shutil.move(os.path.join(aug_master_dir, label), os.path.join(train_labels_dir, label))
+        else:
+            shutil.move(os.path.join(aug_master_dir, image), os.path.join(test_images_dir, image))
+            shutil.move(os.path.join(aug_master_dir, label), os.path.join(test_labels_dir, label))
+    
+    print(f"Train-Test split completed. {train_count} image-label pairs moved to train directory and {len(images) - train_count} pairs moved to test directory.")
+    update_data_yaml(os.path.join(dir, 'data.yaml'), os.path.join(aug_master_dir,'data.yaml'), os.path.join(aug_master_dir,'train'), os.path.join(aug_master_dir,'test'))
+
+def update_data_yaml(source_yaml_path, destination_yaml_path, train_path, test_path):
+    """
+    A function that reads an existing data.yaml file from the source directory, updates it with the
+    train and test paths and the number of classes, and writes the updated data.yaml file to the destination directory.
+    """
+    # Load the existing yaml file
+    with open(source_yaml_path, 'r') as yaml_file:
+        data = yaml.safe_load(yaml_file)
+    
+    # Calculate the number of classes based on the 'names' field
+    num_classes = len(data.get('names', {}))
+    
+    # Update the yaml data
+    data['train'] = train_path
+    data['test'] = test_path
+    data['nc'] = num_classes
+    
+    # Write the updated data back to the new yaml file in the destination directory
+    with open(destination_yaml_path, 'w') as yaml_file:
+        yaml.dump(data, yaml_file, default_flow_style=False)
+    
+    print(f"data.yaml file updated and saved at {destination_yaml_path}")
+
 def random_augment():
     '''
     A function that chooses the augmentation method randomly and return the 
@@ -164,6 +235,8 @@ if labelvalue is not None:
 print("Total number of data created: ", count)
 
 print("Augmentation Completed")
+
+train_test_split(outdir, 80)
 
 
 

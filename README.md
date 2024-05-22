@@ -14,7 +14,7 @@ Note: You can visualize the augmented images and it's bounding box by using http
 
 To run this file :-
 For Text Detection or OCR
-python main.py --dir=/home/swordlord/crimson_tech/Data_Augmentation/good_tags --label_format=YOLO8  --n=10x --rotate=-10to10 --blur=3to15 --contrast=-15to15 --elastic=300to400 --rigid=0to5 --recursion_rate=0.5 --percent=70 
+python main.py --dir=/home/swordlord/crimson_tech/Data_Augmentation/Dataset --label_format=YOLO8  --n=2x --rotate=-10to10 --blur=3to15 --contrast=-15to15 --elastic=300to400 --rigid=0to5 --recursion_rate=0.5 --percent=70 
 
 For Object Detection or YOLO
 In YOLO to generate more variety on data, Image crop method is also applied randomly such that it preserves the data inside the bounding box.

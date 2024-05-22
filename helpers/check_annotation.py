@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
 """
 Command to run the script:
-python check_annotation.py --image_path /home/swordlord/crimson_tech/Data_Augmentation/test --label_path /home/swordlord/crimson_tech/Data_Augmentation/test --num_samples 16 --yolo_version yolov5
+python check_annotation.py --image_path /home/swordlord/crimson_tech/Data_Augmentation/Dataset_Detection_Dataset --label_path /home/swordlord/crimson_tech/Data_Augmentation/Dataset_Detection_Dataset --num_samples 16 --yolo_version yolov8
 
 python check_annotation.py --image_path /home/swordlord/crimson_tech/Data_Augmentation/tags_obb.v1i.yolov5-obb/test/images --label_path /home/swordlord/crimson_tech/Data_Augmentation/tags_obb.v1i.yolov5-obb/test/label --num_samples 16 --yolo_version yolov8
 
